@@ -5,7 +5,7 @@ const faqs = [
   },
   {
     q: 'Who is eligible to donate?',
-    a: 'Most healthy adults aged 17–65 can donate. You must weigh at least 50 kg and be in good general health. Some medical conditions, medications, or recent travel may temporarily or permanently affect eligibility — the donation centre will check this with you before you donate.',
+    a: 'Most healthy adults aged 17–65 can donate. Some medical conditions, medications, recent sexual activies or travel may affect eligibility. The donation centre will check this with you before you donate. One common misconception (that I shared until recently) is that gay or bisexual men cannot donate blood. While this used to be true, the rules have been gradually changing since 2011. Under current guidelines, no-one is excluded based on sexual identity - though you are ineligible to give blood if you have had anal sex with a new sexual partner in the last three months.',
   },
   {
     q: 'How long does a donation take?',
