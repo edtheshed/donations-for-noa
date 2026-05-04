@@ -14,7 +14,7 @@ export async function AboutSection() {
   return (
     <section id="about" className="max-w-3xl mx-auto px-6 py-14">
       <div
-        className="[&_p]:text-warm-muted [&_p]:leading-relaxed [&_p]:mb-5 [&_em]:italic"
+        className="[&_p]:text-warm-muted [&_p]:leading-relaxed [&_p]:mb-5 [&_em]:italic [&_a]:text-crimson [&_a]:underline [&_a]:underline-offset-2 [&_a:hover]:text-crimson-dark"
         style={{ fontFamily: 'var(--font-lora)', fontSize: '1rem' }}
         dangerouslySetInnerHTML={{ __html: htmlContent }}
       />
