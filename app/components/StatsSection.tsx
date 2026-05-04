@@ -8,19 +8,37 @@ function BloodDrop({ className }: { className?: string }) {
   );
 }
 
+const DONATIONS_PER_OPERATION = 18;
+
+function formatEquivalence(count: number): string {
+  const raw = count / DONATIONS_PER_OPERATION;
+  const rounded = Math.round(raw * 10) / 10;
+  return Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(1);
+}
+
 export function StatsSection({ donations }: { donations: Donation[] }) {
   const count = donations.length;
+  const equivalence = formatEquivalence(count);
 
   return (
     <section className="max-w-3xl mx-auto px-6 py-14 text-center">
       <p
-        className="text-warm-ink mb-10"
+        className="text-warm-ink mb-3"
         style={{ fontFamily: 'var(--font-cormorant)', fontSize: 'clamp(1.6rem, 4vw, 2.6rem)', fontWeight: 600, lineHeight: 1.2 }}
       >
         {count === 0
           ? 'No donations recorded yet.'
           : `${count} donations recorded.`}
       </p>
+
+      {count > 0 && (
+        <p
+          className="text-warm-muted mb-10"
+          style={{ fontFamily: 'var(--font-lora)', fontSize: 'clamp(0.85rem, 2vw, 1rem)' }}
+        >
+          Enough blood for {equivalence} {Number(equivalence) === 1 ? 'operation ' : 'operations '} like Mad&rsquo;s.
+        </p>
+      )}
 
       {count > 0 && (
         <div className="flex flex-wrap justify-center gap-2" aria-label={`${count} donations`}>
