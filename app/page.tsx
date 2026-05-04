@@ -78,7 +78,7 @@ export default async function Home() {
           {donations.length === 0 ? (
             <div className="text-center py-16 text-warm-muted">
               <p style={{ fontFamily: 'var(--font-lora)' }}>
-                No donations recorded yet. Be the first.
+                No donations recorded yet. 
               </p>
             </div>
           ) : (
