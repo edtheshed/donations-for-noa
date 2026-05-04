@@ -8,8 +8,8 @@ const faqs = [
     a: 'Most healthy adults aged 17–65 can donate. Some medical conditions, medications, recent sexual activies or travel may affect eligibility. The donation centre will check this with you before you donate. One common misconception (that I shared until recently) is that gay or bisexual men cannot donate blood. While this used to be true, the rules have been gradually changing since 2011. Under current guidelines, no-one is excluded based on sexual identity - though you are ineligible to give blood if you have had anal sex with a new sexual partner in the last three months.',
   },
   {
-    q: 'How long does a donation take?',
-    a: 'The donation itself takes around 10 minutes. Allow about an hour in total to account for registration, a health check, the donation, and a short rest period with refreshments afterwards.',
+    q: "I'm not eligible to donate blood, but I still want to show my support - what should I do?",
+    a: "I've set up a GoFundMe at XXX. The money raised will be used to support the Malaria Consortium's seasonal malaria chemoprevention program. Malaria kills around 600,000 people annually, mostly children under 5 in sub-Saharan Africa. Seasonal malaria chemoprevention is preventive medicine that saves children’s lives. While there isn't a very strong link between this charity and recent events in our lives, I remain someone who believes in the importance of good evidence when making donation decisions (or really any kind of decision) - and the evidence for this intervenion is incredibly strong, with a cost of around $7 per child protected from malaria. So please trust me that this is a good use of your money and remember that losing a child is always a tragedy, wherever it occurs - particularly when it can be prevented with low-cost and widely available medicine." ,
   },
   {
     q: 'How often can I donate?',
