@@ -16,9 +16,6 @@ export default async function Home() {
 
   return (
     <div className="min-h-screen bg-cream">
-      {/* Crimson accent bar */}
-      <div className="h-1 bg-crimson w-full" />
-
       {/* Sticky header */}
       <header className="sticky top-0 z-10 bg-cream/90 backdrop-blur-sm border-b border-warm-border">
         <nav className="overflow-x-auto whitespace-nowrap px-6 py-4 flex justify-center gap-6">
