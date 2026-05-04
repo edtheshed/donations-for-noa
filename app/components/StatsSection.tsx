@@ -18,8 +18,8 @@ export function StatsSection({ donations }: { donations: Donation[] }) {
         style={{ fontFamily: 'var(--font-cormorant)', fontSize: 'clamp(1.6rem, 4vw, 2.6rem)', fontWeight: 600, lineHeight: 1.2 }}
       >
         {count === 0
-          ? 'No donations recorded yet — be the first.'
-          : `${count} ${count === 1 ? 'person has' : 'people have'} donated blood.`}
+          ? 'No donations recorded yet.'
+          : `${count} donations recorded.`}
       </p>
 
       {count > 0 && (

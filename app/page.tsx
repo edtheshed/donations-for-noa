@@ -24,8 +24,8 @@ export default async function Home() {
         <nav className="overflow-x-auto whitespace-nowrap px-6 py-4 flex justify-center gap-6">
           {[
             { href: '#about', label: 'About' },
-            { href: '#donate', label: 'Donate' },
-            { href: '#donations', label: 'Donations' },
+            { href: '#record', label: 'Record a new donation' },
+            { href: '#donations', label: 'Donations so far' },
             { href: '#faq', label: 'FAQ' },
           ].map(({ href, label }) => (
             <a
@@ -52,7 +52,7 @@ export default async function Home() {
         <Divider />
 
         {/* (iii) Donation form */}
-        <section id="donate" className="max-w-md mx-auto py-14">
+        <section id="record" className="max-w-md mx-auto py-14">
           <h2
             className="text-warm-ink text-center mb-8"
             style={{ fontFamily: 'var(--font-cormorant)', fontSize: '2rem', fontWeight: 600 }}
