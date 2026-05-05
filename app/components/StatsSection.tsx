@@ -1,4 +1,5 @@
 import { Donation } from '@/types/donation';
+import { JustGivingTotal } from '@/lib/justgiving';
 
 function BloodDrop({ className }: { className?: string }) {
   return (
@@ -16,9 +17,25 @@ function formatEquivalence(count: number): string {
   return Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(1);
 }
 
-export function StatsSection({ donations }: { donations: Donation[] }) {
+export function StatsSection({
+  donations,
+  justGiving,
+}: {
+  donations: Donation[];
+  justGiving: JustGivingTotal | null;
+}) {
   const count = donations.length;
   const equivalence = formatEquivalence(count);
+  const formattedAmount =
+    justGiving && justGiving.amount > 0
+      ? new Intl.NumberFormat('en-GB', {
+          style: 'currency',
+          currency: justGiving.currency,
+          maximumFractionDigits: 0,
+        }).format(justGiving.amount)
+      : null;
+  const childrenProtected =
+    justGiving && justGiving.amount > 0 ? Math.round(justGiving.amount / 5) : 0;
 
   return (
     <section className="max-w-3xl mx-auto px-6 py-14 text-center">
@@ -52,6 +69,25 @@ export function StatsSection({ donations }: { donations: Donation[] }) {
             <BloodDrop key={d.id} className="w-5 h-5 text-crimson opacity-60" />
           ))}
         </div>
+      )}
+
+      {formattedAmount && (
+        <>
+          <p
+            className="text-warm-ink mt-10 mb-3"
+            style={{ fontFamily: 'var(--font-cormorant)', fontSize: 'clamp(1.6rem, 4vw, 2.6rem)', fontWeight: 600, lineHeight: 1.2 }}
+          >
+            {formattedAmount} raised
+          </p>
+          {childrenProtected >= 1 && (
+            <p
+              className="text-warm-muted"
+              style={{ fontFamily: 'var(--font-lora)', fontSize: 'clamp(0.85rem, 2vw, 1rem)' }}
+            >
+              Enough to protect {childrenProtected} {childrenProtected === 1 ? 'child' : 'children'} from malaria
+            </p>
+          )}
+        </>
       )}
     </section>
   );

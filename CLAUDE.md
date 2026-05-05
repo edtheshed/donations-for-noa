@@ -15,7 +15,7 @@ Live at **donations-for-noa.org**, deployed on Vercel (auto-deploys on push to `
 |------|---------|
 | `app/page.tsx` | Homepage — fetches donations, composes all sections |
 | `app/actions.ts` | Server actions: `getDonations()` and `submitDonation(formData)` |
-| `app/components/StatsSection.tsx` | Hero: site title + donation count + blood drop graphic |
+| `app/components/StatsSection.tsx` | Hero: site title + donation count (with optional JustGiving total) + blood drop graphic |
 | `app/components/AboutSection.tsx` | Reads `content/about.md`, renders as HTML |
 | `app/components/DonationCard.tsx` | Server component card for a single donation |
 | `app/components/DonationForm.tsx` | `"use client"` form with live photo preview + client-side compression |
@@ -23,6 +23,7 @@ Live at **donations-for-noa.org**, deployed on Vercel (auto-deploys on push to `
 | `app/components/FAQSection.tsx` | Accordion FAQ, questions/answers defined inline |
 | `app/globals.css` | Tailwind v4 theme tokens (colours, fonts, animations) |
 | `lib/supabase.ts` | Lazy Supabase client via `getSupabase()` — throws if env vars missing |
+| `lib/justgiving.ts` | Cached scrape of total raised on the matching JustGiving page; 1-hour TTL via `unstable_cache` |
 | `types/donation.ts` | `Donation` interface |
 | `supabase/schema.sql` | Full DB + storage setup — run once in Supabase SQL editor |
 | `content/about.md` | About section copy (markdown, no frontmatter) |

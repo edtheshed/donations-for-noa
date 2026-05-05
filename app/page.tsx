@@ -1,6 +1,7 @@
 export const dynamic = 'force-dynamic';
 
 import { getDonations } from '@/app/actions';
+import { getJustGivingTotal } from '@/lib/justgiving';
 import { DonationCard } from '@/app/components/DonationCard';
 import { DonationForm } from '@/app/components/DonationForm';
 import { StatsSection } from '@/app/components/StatsSection';
@@ -13,7 +14,10 @@ function Divider() {
 }
 
 export default async function Home() {
-  const donations = await getDonations();
+  const [donations, justGiving] = await Promise.all([
+    getDonations(),
+    getJustGivingTotal(),
+  ]);
 
   return (
     <div className="min-h-screen bg-cream">
@@ -42,7 +46,7 @@ export default async function Home() {
 
       <div className="max-w-5xl mx-auto px-6">
         {/* (i) Stats + title hero */}
-        <StatsSection donations={donations} />
+        <StatsSection donations={donations} justGiving={justGiving} />
 
         <Divider />
 
