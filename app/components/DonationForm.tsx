@@ -90,6 +90,14 @@ export function DonationForm() {
 
   return (
     <form ref={formRef} onSubmit={handleSubmit} className="space-y-5" suppressHydrationWarning>
+      <input
+        type="text"
+        name="website"
+        autoComplete="off"
+        tabIndex={-1}
+        aria-hidden="true"
+        style={{ position: 'absolute', left: '-9999px', opacity: 0, height: 0 }}
+      />
       {/* Name */}
       <div>
         <label htmlFor="name" className={labelClass}>

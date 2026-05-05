@@ -24,6 +24,8 @@ export async function submitDonation(
 ): Promise<{ success: boolean; error?: string }> {
   const supabase = getSupabase();
 
+  if (formData.get('website')) return { success: true };
+
   const name = (formData.get('name') as string)?.trim();
   const donated_at = formData.get('donated_at') as string;
   const location = (formData.get('location') as string)?.trim();
