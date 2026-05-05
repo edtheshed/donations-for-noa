@@ -26,12 +26,16 @@ export function DonationMarquee({ donations }: { donations: Donation[] }) {
     const midItem = el.children[repeat * donations.length] as HTMLElement | undefined;
     const loopAt = midItem ? midItem.offsetLeft : Math.round(el.scrollWidth / 2);
 
+    function onScroll() {
+      if (!el) return;
+      if (el.scrollLeft >= loopAt) el.scrollLeft -= loopAt;
+    }
+
     function tick(time: number) {
       if (!el) return;
       if (!pausedRef.current) {
         if (lastTimeRef.current > 0) {
           el.scrollLeft += SPEED * (time - lastTimeRef.current) / 1000;
-          if (el.scrollLeft >= loopAt) el.scrollLeft -= loopAt;
         }
         lastTimeRef.current = time;
       } else {
@@ -40,8 +44,10 @@ export function DonationMarquee({ donations }: { donations: Donation[] }) {
       rafRef.current = requestAnimationFrame(tick);
     }
 
+    el.addEventListener('scroll', onScroll, { passive: true });
     rafRef.current = requestAnimationFrame(tick);
     return () => {
+      el.removeEventListener('scroll', onScroll);
       cancelAnimationFrame(rafRef.current);
       clearTimeout(resumeTimerRef.current);
     };
