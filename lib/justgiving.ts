@@ -1,6 +1,6 @@
 import { unstable_cache } from 'next/cache';
 
-const URL = 'https://www.justgiving.com/page/runningtheworldforalice';
+const URL = 'https://www.justgiving.com/page/donations-for-noa';
 
 export type JustGivingTotal = {
   amount: number;
