@@ -7,7 +7,7 @@ import { DonationForm } from '@/app/components/DonationForm';
 import { StatsSection } from '@/app/components/StatsSection';
 import { AboutSection } from '@/app/components/AboutSection';
 import { FAQSection } from '@/app/components/FAQSection';
-import { FinancialSupportSection } from '@/app/components/FinancialSupportSection';
+import { GoodCauseSection } from '@/app/components/GoodCauseSection';
 
 function Divider() {
   return <div className="h-px bg-warm-border my-2" />;
@@ -29,7 +29,7 @@ export default async function Home() {
             { href: '#about', label: 'About' },
             { href: '#record', label: 'Record a donation' },
             { href: '#donations', label: 'Donations so far' },
-            { href: '#financial-support', label: 'Support financially' },
+            { href: '#good-cause', label: 'Support a good cause' },
             { href: '#faq', label: 'FAQ' },
           ].map(({ href, label }) => (
             <a
@@ -96,8 +96,8 @@ export default async function Home() {
 
         <Divider />
 
-        {/* (v) Financial support */}
-        <FinancialSupportSection />
+        {/* (v) Good cause */}
+        <GoodCauseSection />
 
         <Divider />
 

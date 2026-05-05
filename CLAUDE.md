@@ -19,7 +19,7 @@ Live at **donations-for-noa.org**, deployed on Vercel (auto-deploys on push to `
 | `app/components/AboutSection.tsx` | Reads `content/about.md`, renders as HTML |
 | `app/components/DonationCard.tsx` | Server component card for a single donation |
 | `app/components/DonationForm.tsx` | `"use client"` form with live photo preview + client-side compression |
-| `app/components/FinancialSupportSection.tsx` | Reads `content/financial-support.md`, renders as HTML |
+| `app/components/GoodCauseSection.tsx` | Reads `content/good-cause.md`, renders as HTML |
 | `app/components/FAQSection.tsx` | Accordion FAQ, questions/answers defined inline |
 | `app/globals.css` | Tailwind v4 theme tokens (colours, fonts, animations) |
 | `lib/supabase.ts` | Lazy Supabase client via `getSupabase()` — throws if env vars missing |
@@ -27,7 +27,7 @@ Live at **donations-for-noa.org**, deployed on Vercel (auto-deploys on push to `
 | `types/donation.ts` | `Donation` interface |
 | `supabase/schema.sql` | Full DB + storage setup — run once in Supabase SQL editor |
 | `content/about.md` | About section copy (markdown, no frontmatter) |
-| `content/financial-support.md` | Financial support section copy (markdown, no frontmatter; inline HTML allowed) |
+| `content/good-cause.md` | Good cause section copy (markdown, no frontmatter; inline HTML allowed) |
 
 ## Database schema
 ```sql
@@ -78,16 +78,16 @@ warm-border   #E8CFCF   card borders
 3. `AboutSection` — rendered from `content/about.md`
 4. Donation form (`id="record"`)
 5. Donations grid (`id="donations"`)
-6. `FinancialSupportSection` — rendered from `content/financial-support.md`; includes link to https://www.justgiving.com/page/donations-for-noa
+6. `GoodCauseSection` — rendered from `content/good-cause.md`; includes link to https://www.justgiving.com/page/donations-for-noa
 7. `FAQSection`
 8. Footer
 
 ## Content
 - `content/about.md` — About section copy. Parsed with `remark` + `remark-html`, rendered via `dangerouslySetInnerHTML`. No frontmatter.
-- `content/financial-support.md` — Financial support section copy. Same pipeline as About, but rendered with `remark-html`'s `{ sanitize: false }` so the JustGiving link can keep its raw `<a target="_blank">` markup.
+- `content/good-cause.md` — Good cause section copy. Same pipeline as About, but rendered with `remark-html`'s `{ sanitize: false }` so the JustGiving link can keep its raw `<a target="_blank">` markup.
 - `FAQSection.tsx` has its copy written inline (no markdown file) — edit the component directly.
 
 ## Notes
 - After a successful form submission, `revalidatePath('/')` refreshes the feed
 - The photo upload button uses a `<label htmlFor="photo-input">` to trigger the file input — this is intentional for mobile browser compatibility (programmatic `.click()` on hidden inputs is unreliable on Android)
-- Paragraph text in About and Financial Support sections uses `text-warm-ink`; FAQ answer text also uses `text-warm-ink`
+- Paragraph text in About and Good Cause sections uses `text-warm-ink`; FAQ answer text also uses `text-warm-ink`
