@@ -34,6 +34,10 @@ export async function submitDonation(
     return { success: false, error: 'Name, date, and location are required.' };
   }
 
+  if (name.length > 100) return { success: false, error: 'Name must be 100 characters or fewer.' };
+  if (location.length > 200) return { success: false, error: 'Location must be 200 characters or fewer.' };
+  if (message && message.length > 1000) return { success: false, error: 'Message must be 1000 characters or fewer.' };
+
   let photo_url: string | null = null;
 
   if (photo && photo.size > 0) {
