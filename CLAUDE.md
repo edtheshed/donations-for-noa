@@ -13,14 +13,19 @@ Live at **donations-for-noa.org**, deployed on Vercel (auto-deploys on push to `
 ## Key files
 | File | Purpose |
 |------|---------|
-| `app/page.tsx` | Homepage — fetches donations, renders feed + form |
+| `app/page.tsx` | Homepage — fetches donations, composes all sections |
 | `app/actions.ts` | Server actions: `getDonations()` and `submitDonation(formData)` |
-| `app/components/DonationCard.tsx` | Server component card |
+| `app/components/StatsSection.tsx` | Hero: site title + donation count + blood drop graphic |
+| `app/components/AboutSection.tsx` | Reads `content/about.md`, renders as HTML |
+| `app/components/DonationCard.tsx` | Server component card for a single donation |
 | `app/components/DonationForm.tsx` | `"use client"` form with live photo preview + client-side compression |
+| `app/components/FinancialSupportSection.tsx` | Financial support section with JustGiving link |
+| `app/components/FAQSection.tsx` | Accordion FAQ, questions/answers defined inline |
 | `app/globals.css` | Tailwind v4 theme tokens (colours, fonts, animations) |
 | `lib/supabase.ts` | Lazy Supabase client via `getSupabase()` — throws if env vars missing |
 | `types/donation.ts` | `Donation` interface |
 | `supabase/schema.sql` | Full DB + storage setup — run once in Supabase SQL editor |
+| `content/about.md` | About section copy (markdown, no frontmatter) |
 
 ## Database schema
 ```sql
@@ -65,7 +70,21 @@ warm-muted    #7C4040   secondary text
 warm-border   #E8CFCF   card borders
 ```
 
+## Page structure (in order)
+1. Sticky nav header
+2. `StatsSection` — site title ("Donations for Noa") + donation count + equivalence line + blood drop grid
+3. `AboutSection` — rendered from `content/about.md`
+4. Donation form (`id="record"`)
+5. Donations grid (`id="donations"`)
+6. `FinancialSupportSection` — prose + link to https://www.justgiving.com/page/donations-for-noa
+7. `FAQSection`
+8. Footer
+
+## Content
+- `content/about.md` — About section copy. Parsed with `remark` + `remark-html`, rendered via `dangerouslySetInnerHTML`. No frontmatter.
+- `FinancialSupportSection.tsx` and `FAQSection.tsx` have their copy written inline (no markdown file) — edit the components directly.
+
 ## Notes
 - After a successful form submission, `revalidatePath('/')` refreshes the feed
 - The photo upload button uses a `<label htmlFor="photo-input">` to trigger the file input — this is intentional for mobile browser compatibility (programmatic `.click()` on hidden inputs is unreliable on Android)
-- All page text is intentionally generic — ready for customisation
+- Paragraph text in About and Financial Support sections uses `text-warm-ink`; FAQ answer text also uses `text-warm-ink`
