@@ -22,6 +22,7 @@ export function DonationForm() {
   useEffect(() => {
     setToday(new Date().toISOString().split('T')[0]);
   }, []);
+  const [message, setMessage] = useState('');
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
   const [photoFile, setPhotoFile] = useState<File | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -83,6 +84,7 @@ export function DonationForm() {
       formRef.current?.reset();
       setPhotoPreview(null);
       setPhotoFile(null);
+      setMessage('');
     }
   }
 
@@ -98,6 +100,7 @@ export function DonationForm() {
           name="name"
           type="text"
           required
+          maxLength={100}
           placeholder="e.g. Sarah Mitchell"
           className={inputClass}
           suppressHydrationWarning
@@ -130,6 +133,7 @@ export function DonationForm() {
           name="location"
           type="text"
           required
+          maxLength={200}
           placeholder="e.g. King's College Hospital, London"
           className={inputClass}
           suppressHydrationWarning
@@ -146,10 +150,16 @@ export function DonationForm() {
           id="message"
           name="message"
           rows={3}
+          maxLength={1000}
           placeholder="Share why you donated, or anything you'd like to say..."
           className={`${inputClass} resize-none leading-relaxed`}
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
           suppressHydrationWarning
         />
+        <p className={`mt-1.5 text-xs text-right ${message.length > 900 ? 'text-crimson' : 'text-warm-muted'}`}>
+          {message.length}/1000
+        </p>
       </div>
 
       {/* Photo */}
