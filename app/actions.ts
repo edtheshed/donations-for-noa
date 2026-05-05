@@ -2,6 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 import { getSupabase } from '@/lib/supabase';
+import { checkRateLimit, getIp } from '@/lib/rate-limit';
 import type { Donation } from '@/types/donation';
 
 export async function getDonations(): Promise<Donation[]> {
@@ -25,6 +26,12 @@ export async function submitDonation(
   const supabase = getSupabase();
 
   if (formData.get('website')) return { success: true };
+
+  const ip = await getIp();
+  const { allowed } = await checkRateLimit(ip);
+  if (!allowed) {
+    return { success: false, error: 'Too many submissions. Please try again in an hour.' };
+  }
 
   const name = (formData.get('name') as string)?.trim();
   const donated_at = formData.get('donated_at') as string;
