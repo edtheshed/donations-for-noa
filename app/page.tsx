@@ -6,6 +6,7 @@ import { DonationForm } from '@/app/components/DonationForm';
 import { StatsSection } from '@/app/components/StatsSection';
 import { AboutSection } from '@/app/components/AboutSection';
 import { FAQSection } from '@/app/components/FAQSection';
+import { FinancialSupportSection } from '@/app/components/FinancialSupportSection';
 
 function Divider() {
   return <div className="h-px bg-warm-border my-2" />;
@@ -22,8 +23,9 @@ export default async function Home() {
         <nav className="overflow-x-auto whitespace-nowrap px-6 py-4 flex justify-center gap-6">
           {[
             { href: '#about', label: 'About' },
-            { href: '#record', label: 'Record a new donation' },
+            { href: '#record', label: 'Record a donation' },
             { href: '#donations', label: 'Donations so far' },
+            { href: '#financial-support', label: 'Support financially' },
             { href: '#faq', label: 'FAQ' },
           ].map(({ href, label }) => (
             <a
@@ -39,7 +41,7 @@ export default async function Home() {
       </header>
 
       <div className="max-w-5xl mx-auto px-6">
-        {/* (i) Stats */}
+        {/* (i) Stats + title hero */}
         <StatsSection donations={donations} />
 
         <Divider />
@@ -90,7 +92,12 @@ export default async function Home() {
 
         <Divider />
 
-        {/* (v) FAQ */}
+        {/* (v) Financial support */}
+        <FinancialSupportSection />
+
+        <Divider />
+
+        {/* (vi) FAQ */}
         <FAQSection />
       </div>
 

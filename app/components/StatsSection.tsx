@@ -22,21 +22,27 @@ export function StatsSection({ donations }: { donations: Donation[] }) {
 
   return (
     <section className="max-w-3xl mx-auto px-6 py-14 text-center">
+      <h1
+        className="text-warm-ink mb-6"
+        style={{ fontFamily: 'var(--font-cormorant)', fontSize: 'clamp(2.8rem, 7vw, 4.5rem)', fontWeight: 600, lineHeight: 1.1 }}
+      >
+        Donations for Noa
+      </h1>
       <p
         className="text-warm-ink mb-3"
         style={{ fontFamily: 'var(--font-cormorant)', fontSize: 'clamp(1.6rem, 4vw, 2.6rem)', fontWeight: 600, lineHeight: 1.2 }}
       >
         {count === 0
-          ? 'No donations recorded yet.'
-          : `${count} donations recorded.`}
+          ? 'No donations recorded yet'
+          : `${count} donations recorded`}
       </p>
 
       {count > 0 && (
         <p
-          className="text-warm-muted mb-10"
+          className="text-warm-muted mb-4"
           style={{ fontFamily: 'var(--font-lora)', fontSize: 'clamp(0.85rem, 2vw, 1rem)' }}
         >
-          Enough blood for {equivalence} {Number(equivalence) === 1 ? 'operation ' : 'operations '} like Mad&rsquo;s.
+          Enough blood for {equivalence} {Number(equivalence) === 1 ? 'operation ' : 'operations '} like Mad&rsquo;s
         </p>
       )}
 
