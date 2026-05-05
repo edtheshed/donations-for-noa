@@ -37,7 +37,15 @@ export async function submitDonation(
   let photo_url: string | null = null;
 
   if (photo && photo.size > 0) {
-    const ext = photo.name.split('.').pop() ?? 'jpg';
+    const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
+    if (!ALLOWED_TYPES.includes(photo.type)) {
+      return { success: false, error: 'Photo must be a JPEG, PNG, or WebP image.' };
+    }
+    if (photo.size > 5 * 1024 * 1024) {
+      return { success: false, error: 'Photo must be under 5 MB.' };
+    }
+
+    const ext = photo.type === 'image/png' ? 'png' : photo.type === 'image/webp' ? 'webp' : 'jpg';
     const fileName = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
     const bytes = await photo.arrayBuffer();
 
