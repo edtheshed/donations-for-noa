@@ -5,6 +5,5 @@ export interface Donation {
   location: string;
   message?: string;
   photo_url?: string;
-  photo_is_portrait?: boolean | null;
   created_at: string;
 }

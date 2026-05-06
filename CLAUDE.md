@@ -46,10 +46,20 @@ donations (
 Use **bun** for all package operations (`bun add`, `bun dev`, `bunx tsc`, etc.). Do not use npm or npx.
 
 ## Local dev
-1. Copy `.env.local.example` → `.env.local` and fill in `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
-2. `bun dev`
+1. Copy the appropriate env file to `.env.local` (see below), then `bun dev`
 
 `supabase/schema.sql` is for reference — the DB is already provisioned.
+
+## Environment switching
+Two pre-filled env files exist for switching between databases:
+
+| File | Points to |
+|------|-----------|
+| `.env.local.prod` | Production Supabase database |
+| `.env.local.test` | Test Supabase database |
+
+To switch: `cp .env.local.prod .env.local` or `cp .env.local.test .env.local`, then restart `bun dev`.
+**Current `.env.local` is set to the test database.**
 
 ## Photo uploads
 Photos are compressed **client-side** before upload (in `DonationForm.tsx`):
