@@ -9,6 +9,7 @@ import { StatsSection } from '@/app/components/StatsSection';
 import { AboutSection } from '@/app/components/AboutSection';
 import { FAQSection } from '@/app/components/FAQSection';
 import { GoodCauseSection } from '@/app/components/GoodCauseSection';
+import { NavBar } from '@/app/components/NavBar';
 
 function Divider() {
   return <div className="h-px bg-warm-border my-2" />;
@@ -23,27 +24,7 @@ export default async function Home() {
   return (
     <div className="min-h-screen bg-cream">
 
-      {/* Sticky header */}
-      <header className="sticky top-0 z-10 bg-cream/90 backdrop-blur-sm border-b border-warm-border">
-        <nav className="overflow-x-auto whitespace-nowrap px-6 py-4 flex justify-center gap-6">
-          {[
-            { href: '#about', label: 'About' },
-            { href: '#record', label: 'Record a donation' },
-            { href: '#donations', label: 'Donations so far' },
-            { href: '#good-cause', label: 'Support a good cause' },
-            { href: '#faq', label: 'FAQ' },
-          ].map(({ href, label }) => (
-            <a
-              key={href}
-              href={href}
-              className="text-warm-muted hover:text-ocean transition-colors duration-150"
-              style={{ fontFamily: 'var(--font-lora)', fontSize: '0.75rem' }}
-            >
-              {label}
-            </a>
-          ))}
-        </nav>
-      </header>
+      <NavBar />
 
       <div className="max-w-5xl mx-auto px-6">
         {/* (i) Stats + title hero */}
