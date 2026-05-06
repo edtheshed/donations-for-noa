@@ -16,7 +16,7 @@ She would certainly have died if she hadn't been supported by extensive blood tr
 the care of an excellent and experienced team of clinicians. Even with sufficient blood on hand, the situation was very
 serious. She was transferred from the operating theatre to the Intensive Treatment Unit, where she remained in a
 medically-induced coma for several days. She has since been steadily recovering, getting a little better every day. We
-are hopefull that she will make a full recovery.
+are hopeful that she will make a full recovery.
 
 So many of our friends and family have offered us their help over the last few weeks. We are very grateful and will
 definitely need you over the months and years to come. For now, we would like to offer a practical outlet for that love
