@@ -38,6 +38,7 @@ export async function submitDonation(
   const location = (formData.get('location') as string)?.trim();
   const message = (formData.get('message') as string)?.trim() || null;
   const photo = formData.get('photo') as File | null;
+  const photo_is_portrait = formData.get('photo_is_portrait') === 'true' ? true : formData.get('photo_is_portrait') === 'false' ? false : null;
 
   if (!name || !donated_at || !location) {
     return { success: false, error: 'Name, date, and location are required.' };
@@ -83,6 +84,7 @@ export async function submitDonation(
     location,
     message,
     photo_url,
+    photo_is_portrait: photo_url ? photo_is_portrait : null,
   });
 
   if (error) {

@@ -25,12 +25,13 @@ export function DonationForm() {
   const [message, setMessage] = useState('');
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
   const [photoFile, setPhotoFile] = useState<File | null>(null);
+  const [photoIsPortrait, setPhotoIsPortrait] = useState<boolean | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [result, setResult] = useState<{ success: boolean; error?: string } | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
-  async function compressImage(file: File): Promise<File> {
+  async function compressImage(file: File): Promise<{ file: File; isPortrait: boolean }> {
     const MAX_PX = 1200;
     const QUALITY = 0.8;
     return new Promise((resolve) => {
@@ -43,13 +44,14 @@ export function DonationForm() {
         canvas.width = Math.round(img.width * scale);
         canvas.height = Math.round(img.height * scale);
         canvas.getContext('2d')!.drawImage(img, 0, 0, canvas.width, canvas.height);
+        const isPortrait = canvas.height > canvas.width;
         canvas.toBlob(
-          (blob) => resolve(blob ? new File([blob], 'photo.jpg', { type: 'image/jpeg' }) : file),
+          (blob) => resolve({ file: blob ? new File([blob], 'photo.jpg', { type: 'image/jpeg' }) : file, isPortrait }),
           'image/jpeg',
           QUALITY
         );
       };
-      img.onerror = () => { URL.revokeObjectURL(url); resolve(file); };
+      img.onerror = () => { URL.revokeObjectURL(url); resolve({ file, isPortrait: false }); };
       img.src = url;
     });
   }
@@ -57,8 +59,9 @@ export function DonationForm() {
   async function handlePhotoChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
-    const compressed = await compressImage(file);
+    const { file: compressed, isPortrait } = await compressImage(file);
     setPhotoFile(compressed);
+    setPhotoIsPortrait(isPortrait);
     setPhotoPreview(URL.createObjectURL(compressed));
   }
 
@@ -74,7 +77,10 @@ export function DonationForm() {
     setResult(null);
 
     const formData = new FormData(e.currentTarget);
-    if (photoFile) formData.set('photo', photoFile);
+    if (photoFile) {
+      formData.set('photo', photoFile);
+      formData.set('photo_is_portrait', String(photoIsPortrait ?? false));
+    }
 
     const res = await submitDonation(formData);
     setResult(res);
@@ -84,6 +90,7 @@ export function DonationForm() {
       formRef.current?.reset();
       setPhotoPreview(null);
       setPhotoFile(null);
+      setPhotoIsPortrait(null);
       setMessage('');
     }
   }

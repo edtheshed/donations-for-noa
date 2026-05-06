@@ -43,6 +43,7 @@ export function DonationCard({ donation, index }: Props) {
             alt={`Photo from ${donation.name}`}
             fill
             className="object-cover"
+            style={{ objectPosition: donation.photo_is_portrait ? 'center top' : 'center' }}
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
           <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-ocean-mid opacity-40" />
