@@ -224,7 +224,7 @@ export function DonationForm() {
             </div>
             <div className="flex gap-2">
               <button type="button" onClick={confirmCrop} disabled={!completedCrop}
-                className="flex-1 py-2.5 rounded-xl bg-ocean hover:bg-ocean-dark text-white text-sm font-medium transition-colors duration-200 disabled:opacity-40">
+                className="flex-1 py-2.5 rounded-xl bg-warm-ink hover:bg-warm-ink/80 text-white text-sm font-medium transition-colors duration-200 disabled:opacity-40">
                 Use this crop
               </button>
               <button type="button" onClick={removePhoto}
@@ -270,7 +270,7 @@ export function DonationForm() {
 
       {/* Submit */}
       <button type="submit" disabled={submitting}
-        className="w-full py-3.5 rounded-xl bg-ocean hover:bg-ocean-dark text-white text-sm font-medium tracking-wide transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2.5">
+        className="w-full py-3.5 rounded-xl bg-warm-ink hover:bg-warm-ink/80 text-white text-sm font-medium tracking-wide transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2.5">
         {submitting ? (
           <>
             <svg className="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none">
