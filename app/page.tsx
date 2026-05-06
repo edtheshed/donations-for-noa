@@ -67,7 +67,7 @@ export default async function Home() {
                 No donations recorded yet.
               </p>
             </div>
-          ) : donations.length <= 4 ? (
+          ) : donations.length <= 3 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {donations.map((d, i) => (
                 <DonationCard key={d.id} donation={d} index={i} />

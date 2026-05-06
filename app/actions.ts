@@ -10,6 +10,7 @@ export async function getDonations(): Promise<Donation[]> {
   const { data, error } = await supabase
     .from('donations')
     .select('*')
+    .order('donated_at', { ascending: false })
     .order('created_at', { ascending: false });
 
   if (error) {
