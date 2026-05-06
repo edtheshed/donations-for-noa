@@ -45,9 +45,20 @@ export function DonationCard({ donation, index }: Props) {
             className="object-cover"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
+          <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-crimson opacity-30" />
         </div>
       ) : (
-        <div className="h-1 bg-crimson w-full" />
+        <div className="relative w-full h-44 overflow-hidden bg-crimson-light flex items-center justify-center">
+          <svg
+            viewBox="0 0 64 80"
+            className="w-16 h-20 opacity-20"
+            fill="var(--color-crimson)"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M32 4 C32 4, 8 34, 8 50 C8 64.4 18.8 76 32 76 C45.2 76 56 64.4 56 50 C56 34 32 4 32 4Z" />
+          </svg>
+          <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-crimson opacity-30" />
+        </div>
       )}
 
       <div className="p-5 flex flex-col gap-3 flex-1">

@@ -1,13 +1,42 @@
 'use client';
 
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Donation } from '@/types/donation';
 import { DonationCard } from './DonationCard';
 
 const CARD_WIDTH = 288;
 const CARD_GAP = 20;
-const SPEED = 60;         // px/s
-const RESUME_DELAY = 2000; // ms after user interaction before auto-scroll resumes
+const SPEED = 60;
+const RESUME_DELAY = 15000;
+const ARROW_SCROLL = CARD_WIDTH + CARD_GAP;
+
+function ArrowButton({ direction, onClick }: { direction: 'left' | 'right'; onClick: () => void }) {
+  const [pressed, setPressed] = useState(false);
+  return (
+    <button
+      onMouseDown={() => setPressed(true)}
+      onMouseUp={() => setPressed(false)}
+      onMouseLeave={() => setPressed(false)}
+      onClick={onClick}
+      aria-label={direction === 'left' ? 'Scroll left' : 'Scroll right'}
+      className={[
+        'absolute top-1/2 -translate-y-1/2 z-20',
+        'w-9 h-9 rounded-full flex items-center justify-center',
+        'bg-white border border-warm-border shadow-sm',
+        'text-warm-muted hover:text-crimson hover:border-crimson',
+        'transition-all duration-150 cursor-pointer',
+        direction === 'left' ? 'left-2' : 'right-2',
+        pressed ? 'scale-90' : 'scale-100',
+      ].join(' ')}
+    >
+      <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+        {direction === 'left'
+          ? <polyline points="15 18 9 12 15 6" />
+          : <polyline points="9 18 15 12 9 6" />}
+      </svg>
+    </button>
+  );
+}
 
 export function DonationMarquee({ donations }: { donations: Donation[] }) {
   const repeat = Math.max(2, Math.ceil(2400 / (donations.length * (CARD_WIDTH + CARD_GAP))) + 1);
@@ -17,18 +46,25 @@ export function DonationMarquee({ donations }: { donations: Donation[] }) {
   const lastTimeRef = useRef<number>(0);
   const pausedRef = useRef(false);
   const resumeTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const loopAtRef = useRef(0);
+
+  // drag state
+  const isDraggingRef = useRef(false);
+  const dragStartXRef = useRef(0);
+  const dragScrollLeftRef = useRef(0);
+  const [isDragging, setIsDragging] = useState(false);
 
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
 
-    // offsetLeft of the first item in the second half = exact pixel width of one set.
     const midItem = el.children[repeat * donations.length] as HTMLElement | undefined;
-    const loopAt = midItem ? midItem.offsetLeft : Math.round(el.scrollWidth / 2);
+    loopAtRef.current = midItem ? midItem.offsetLeft : Math.round(el.scrollWidth / 2);
 
     function onScroll() {
       if (!el) return;
-      if (el.scrollLeft >= loopAt) el.scrollLeft -= loopAt;
+      if (el.scrollLeft >= loopAtRef.current) el.scrollLeft -= loopAtRef.current;
+      else if (el.scrollLeft < 0) el.scrollLeft += loopAtRef.current;
     }
 
     function tick(time: number) {
@@ -59,20 +95,61 @@ export function DonationMarquee({ donations }: { donations: Donation[] }) {
     resumeTimerRef.current = setTimeout(() => { pausedRef.current = false; }, RESUME_DELAY);
   }, []);
 
+  const handleMouseDown = useCallback((e: React.MouseEvent) => {
+    const el = containerRef.current;
+    if (!el) return;
+    pauseTemporarily();
+    isDraggingRef.current = true;
+    dragStartXRef.current = e.clientX;
+    dragScrollLeftRef.current = el.scrollLeft;
+    setIsDragging(true);
+  }, [pauseTemporarily]);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    if (!isDraggingRef.current) return;
+    const el = containerRef.current;
+    if (!el) return;
+    e.preventDefault();
+    const dx = e.clientX - dragStartXRef.current;
+    el.scrollLeft = dragScrollLeftRef.current - dx;
+    pauseTemporarily();
+  }, [pauseTemporarily]);
+
+  const stopDrag = useCallback(() => {
+    isDraggingRef.current = false;
+    setIsDragging(false);
+  }, []);
+
+  const scrollBy = useCallback((delta: number) => {
+    const el = containerRef.current;
+    if (!el) return;
+    pauseTemporarily();
+    el.scrollLeft += delta;
+  }, [pauseTemporarily]);
+
   const items = Array.from({ length: repeat * 2 * donations.length }, (_, i) => donations[i % donations.length]);
 
   return (
-    <div className="relative mb-14">
+    <div className="relative">
       <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-cream to-transparent z-10 pointer-events-none" />
       <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-cream to-transparent z-10 pointer-events-none" />
 
+      <ArrowButton direction="left" onClick={() => scrollBy(-ARROW_SCROLL)} />
+      <ArrowButton direction="right" onClick={() => scrollBy(ARROW_SCROLL)} />
+
       <div
         ref={containerRef}
-        className="flex overflow-x-auto"
-        style={{ scrollbarWidth: 'none' }}
+        className="flex overflow-x-auto select-none"
+        style={{
+          scrollbarWidth: 'none',
+          cursor: isDragging ? 'grabbing' : 'grab',
+        }}
         onWheel={pauseTemporarily}
         onTouchStart={pauseTemporarily}
-        onMouseDown={pauseTemporarily}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={stopDrag}
+        onMouseLeave={stopDrag}
       >
         {items.map((donation, i) => (
           <div key={i} className="flex-shrink-0 w-72 pr-5">
