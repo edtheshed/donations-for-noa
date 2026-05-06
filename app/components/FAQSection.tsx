@@ -5,10 +5,7 @@ import React, { useState } from 'react';
 const faqs: { q: string; a: React.ReactNode }[] = [
     {
         q: 'How do I donate blood?',
-        a: <>You can register to donate at your nearest donation centre. In the UK, visit the NHS Blood and Transplant
-            website (<a href="https://www.blood.co.uk" target="_blank" rel="noopener noreferrer"
-                        className="text-crimson underline hover:text-crimson-dark">www.blood.co.uk</a>) to find your
-            nearest session and book an appointment.</>,
+        a: <>You can register to donate at your nearest donation centre. In the UK, visit the <a href="https://www.blood.co.uk" target="_blank" rel="noopener noreferrer" className="text-crimson underline hover:text-crimson-dark">NHS Blood and Transplant website</a> to find your nearest session and book an appointment.</>,
     },
     {
         q: 'Who is eligible to donate?',
@@ -20,10 +17,7 @@ const faqs: { q: string; a: React.ReactNode }[] = [
     },
     {
         q: 'Where can I find my nearest donation centre?',
-        a: <>Use the session finder at <a href="https://www.blood.co.uk" target="_blank" rel="noopener noreferrer"
-                                          className="text-crimson underline hover:text-crimson-dark">www.blood.co.uk</a> to
-            search by postcode. Donation sessions are held at permanent donor centres and at temporary venues such as
-            community halls and workplaces.</>,
+        a: <>Use the session finder on the <a href="https://www.blood.co.uk" target="_blank" rel="noopener noreferrer" className="text-crimson underline hover:text-crimson-dark">NHS Blood and Transplant website</a> to search by postcode. Donation sessions are held at permanent donor centres and at temporary venues such as community halls and workplaces.</>,
     },
 ];
 
