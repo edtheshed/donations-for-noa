@@ -45,10 +45,10 @@ export function DonationCard({ donation, index }: Props) {
             className="object-cover"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
-          <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-crimson opacity-30" />
+          <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-ocean-mid opacity-40" />
         </div>
       ) : (
-        <div className="relative w-full h-44 overflow-hidden bg-crimson-light flex items-center justify-center">
+        <div className="relative w-full h-44 overflow-hidden bg-ocean-light flex items-center justify-center">
           <svg
             viewBox="0 0 64 80"
             className="w-16 h-20 opacity-20"
@@ -57,7 +57,7 @@ export function DonationCard({ donation, index }: Props) {
           >
             <path d="M32 4 C32 4, 8 34, 8 50 C8 64.4 18.8 76 32 76 C45.2 76 56 64.4 56 50 C56 34 32 4 32 4Z" />
           </svg>
-          <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-crimson opacity-30" />
+          <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-ocean-mid opacity-40" />
         </div>
       )}
 
@@ -82,7 +82,7 @@ export function DonationCard({ donation, index }: Props) {
 
         {donation.message && (
           <blockquote
-            className="text-warm-muted text-sm leading-relaxed italic border-l-2 border-crimson-mid pl-3 mt-1"
+            className="text-warm-muted text-sm leading-relaxed italic border-l-2 border-ocean-mid pl-3 mt-1"
             style={{ fontFamily: 'var(--font-lora)' }}
           >
             &ldquo;{donation.message}&rdquo;

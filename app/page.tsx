@@ -35,7 +35,7 @@ export default async function Home() {
             <a
               key={href}
               href={href}
-              className="text-warm-muted hover:text-crimson transition-colors duration-150"
+              className="text-warm-muted hover:text-ocean transition-colors duration-150"
               style={{ fontFamily: 'var(--font-lora)', fontSize: '0.75rem' }}
             >
               {label}

@@ -13,7 +13,7 @@ function BloodDrop({ className }: { className?: string }) {
 }
 
 const inputClass =
-  'w-full px-4 py-3 rounded-xl border border-warm-border bg-white text-warm-ink placeholder-warm-muted/60 text-sm focus:outline-none focus:ring-2 focus:ring-crimson/30 focus:border-crimson transition-colors duration-200';
+  'w-full px-4 py-3 rounded-xl border border-warm-border bg-white text-warm-ink placeholder-warm-muted/60 text-sm focus:outline-none focus:ring-2 focus:ring-ocean/30 focus:border-ocean transition-colors duration-200';
 
 const labelClass = 'block text-sm font-medium text-warm-ink mb-1.5';
 
@@ -101,7 +101,7 @@ export function DonationForm() {
       {/* Name */}
       <div>
         <label htmlFor="name" className={labelClass}>
-          Your name <span className="text-crimson">*</span>
+          Your name <span className="text-ocean">*</span>
         </label>
         <input
           id="name"
@@ -118,7 +118,7 @@ export function DonationForm() {
       {/* Date */}
       <div>
         <label htmlFor="donated_at" className={labelClass}>
-          Date donated <span className="text-crimson">*</span>
+          Date donated <span className="text-ocean">*</span>
         </label>
         <input
           id="donated_at"
@@ -134,7 +134,7 @@ export function DonationForm() {
       {/* Location */}
       <div>
         <label htmlFor="location" className={labelClass}>
-          Donation centre / location <span className="text-crimson">*</span>
+          Donation centre / location <span className="text-ocean">*</span>
         </label>
         <input
           id="location"
@@ -180,7 +180,7 @@ export function DonationForm() {
         {!photoPreview ? (
           <label
             htmlFor="photo-input"
-            className="w-full py-7 rounded-xl border-2 border-dashed border-warm-border hover:border-crimson/40 hover:bg-crimson-light/40 transition-colors duration-200 flex flex-col items-center gap-2 text-warm-muted cursor-pointer"
+            className="w-full py-7 rounded-xl border-2 border-dashed border-warm-border hover:border-ocean/40 hover:bg-ocean-light/40 transition-colors duration-200 flex flex-col items-center gap-2 text-warm-muted cursor-pointer"
           >
             <svg className="w-7 h-7 opacity-40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" />
@@ -236,7 +236,7 @@ export function DonationForm() {
       <button
         type="submit"
         disabled={submitting}
-        className="w-full py-3.5 rounded-xl bg-crimson hover:bg-crimson-dark text-white text-sm font-medium tracking-wide transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2.5"
+        className="w-full py-3.5 rounded-xl bg-ocean hover:bg-ocean-dark text-white text-sm font-medium tracking-wide transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2.5"
       >
         {submitting ? (
           <>

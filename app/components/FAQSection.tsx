@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 const faqs: { q: string; a: React.ReactNode }[] = [
     {
         q: 'How do I donate blood?',
-        a: <>You can register to donate at your nearest donation centre. In the UK, visit the <a href="https://www.blood.co.uk" target="_blank" rel="noopener noreferrer" className="text-crimson underline hover:text-crimson-dark">NHS Blood and Transplant website</a> to find your nearest session and book an appointment.</>,
+        a: <>You can register to donate at your nearest donation centre. In the UK, visit the <a href="https://www.blood.co.uk" target="_blank" rel="noopener noreferrer" className="text-ocean underline hover:text-ocean-dark">NHS Blood and Transplant website</a> to find your nearest session and book an appointment.</>,
     },
     {
         q: 'Who is eligible to donate?',
@@ -17,7 +17,7 @@ const faqs: { q: string; a: React.ReactNode }[] = [
     },
     {
         q: 'Where can I find my nearest donation centre?',
-        a: <>Use the session finder on the <a href="https://www.blood.co.uk" target="_blank" rel="noopener noreferrer" className="text-crimson underline hover:text-crimson-dark">NHS Blood and Transplant website</a> to search by postcode. Donation sessions are held at permanent donor centres and at temporary venues such as community halls and workplaces.</>,
+        a: <>Use the session finder on the <a href="https://www.blood.co.uk" target="_blank" rel="noopener noreferrer" className="text-ocean underline hover:text-ocean-dark">NHS Blood and Transplant website</a> to search by postcode. Donation sessions are held at permanent donor centres and at temporary venues such as community halls and workplaces.</>,
     },
 ];
 
@@ -43,7 +43,7 @@ export function FAQSection() {
                             type="button"
                             onClick={() => setOpenIndex(openIndex === i ? null : i)}
                             aria-expanded={openIndex === i}
-                            className="w-full flex items-center justify-between gap-4 px-5 py-4 cursor-pointer text-warm-ink font-medium select-none hover:bg-crimson-light/40 transition-colors duration-150 text-left"
+                            className="w-full flex items-center justify-between gap-4 px-5 py-4 cursor-pointer text-warm-ink font-medium select-none hover:bg-ocean-light/40 transition-colors duration-150 text-left"
                             style={{fontFamily: 'var(--font-lora)', fontSize: '0.95rem'}}
                         >
                             {q}

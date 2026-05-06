@@ -23,7 +23,7 @@ function ArrowButton({ direction, onClick }: { direction: 'left' | 'right'; onCl
         'absolute top-1/2 -translate-y-1/2 z-20',
         'w-9 h-9 rounded-full flex items-center justify-center',
         'bg-white border border-warm-border shadow-sm',
-        'text-warm-muted hover:text-crimson hover:border-crimson',
+        'text-warm-muted hover:text-ocean hover:border-ocean',
         'transition-all duration-150 cursor-pointer',
         direction === 'left' ? 'left-2' : 'right-2',
         pressed ? 'scale-90' : 'scale-100',

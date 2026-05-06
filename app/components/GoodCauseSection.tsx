@@ -22,7 +22,7 @@ export async function GoodCauseSection() {
         Support a good cause
       </h2>
       <div
-        className="[&_p]:text-warm-ink [&_p]:leading-relaxed [&_p]:mb-5 [&_em]:italic [&_a]:text-crimson [&_a]:underline [&_a]:underline-offset-2 [&_a:hover]:text-crimson-dark"
+        className="[&_p]:text-warm-ink [&_p]:leading-relaxed [&_p]:mb-5 [&_em]:italic [&_a]:text-ocean [&_a]:underline [&_a]:underline-offset-2 [&_a:hover]:text-ocean-dark"
         style={{ fontFamily: 'var(--font-lora)', fontSize: '1rem' }}
         dangerouslySetInnerHTML={{ __html: htmlContent }}
       />
