@@ -3,6 +3,7 @@ export const dynamic = 'force-dynamic';
 import { getDonations } from '@/app/actions';
 import { getJustGivingTotal } from '@/lib/justgiving';
 import { DonationMarquee } from '@/app/components/DonationMarquee';
+import { DonationCard } from '@/app/components/DonationCard';
 import { DonationForm } from '@/app/components/DonationForm';
 import { StatsSection } from '@/app/components/StatsSection';
 import { AboutSection } from '@/app/components/AboutSection';
@@ -84,6 +85,12 @@ export default async function Home() {
               <p style={{ fontFamily: 'var(--font-lora)' }}>
                 No donations recorded yet.
               </p>
+            </div>
+          ) : donations.length <= 4 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {donations.map((d, i) => (
+                <DonationCard key={d.id} donation={d} index={i} />
+              ))}
             </div>
           ) : (
             <DonationMarquee donations={donations} />
