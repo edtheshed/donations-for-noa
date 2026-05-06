@@ -21,7 +21,7 @@ const lora = Lora({
 
 export const metadata: Metadata = {
   title: 'Donations for Noa',
-  description: 'Register your blood donation.',
+  description: '',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
