@@ -122,6 +122,7 @@ export function DonationMarquee({ donations }: { donations: Donation[] }) {
   }, []);
 
   const handleModalChange = useCallback((open: boolean) => {
+    if (open === modalOpenRef.current) return;
     modalOpenRef.current = open;
     if (open) {
       pausedRef.current = true;
@@ -178,8 +179,6 @@ export function DonationMarquee({ donations }: { donations: Donation[] }) {
           scrollbarWidth: 'none',
           cursor: isDragging ? 'grabbing' : 'grab',
         }}
-        onWheel={pauseTemporarily}
-        onTouchStart={pauseTemporarily}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={stopDrag}
