@@ -27,8 +27,8 @@ Some of you may donate only once - which would still be greatly appreciated - bu
 habit of it, as regular donors are much more useful for maintaining good supplies. For those of you who cannot give
 blood (or who are feeling particularly generous), we've also set up a [fundraiser](#good-cause) - details below.
 
-We will mourn our daughter for the rest of our lives. And I will never forget that I came within an inch of losing both
-my daughter *and* my wife - something that I know I would never have recovered from. So I will be forever grateful to
+We will mourn our daughter for the rest of our lives. I also know that I came within an inch of losing both
+my daughter *and* my wife - something that I would never have recovered from. So I will be forever grateful to
 everyone who donated the blood that saved Mad's life. And, if you are able, I would truly appreciate it if you would
 take the time to do the same, so that others can benefit from the life-saving medical care that they need.
 
