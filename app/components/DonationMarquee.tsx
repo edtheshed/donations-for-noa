@@ -9,6 +9,7 @@ const CARD_GAP = 20;
 const SPEED = 60;
 const RESUME_DELAY = 15000;
 const ARROW_SCROLL = CARD_WIDTH + CARD_GAP;
+const ARROW_DECAY = 9; // ease-out decay constant (higher = snappier start, quicker finish)
 
 function ArrowButton({ direction, onClick }: { direction: 'left' | 'right'; onClick: () => void }) {
   const [pressed, setPressed] = useState(false);
@@ -54,6 +55,10 @@ export function DonationMarquee({ donations }: { donations: Donation[] }) {
   const dragScrollLeftRef = useRef(0);
   const [isDragging, setIsDragging] = useState(false);
 
+  // Arrow smooth scroll
+  const arrowDeltaRef = useRef(0);
+  const arrowLastTimeRef = useRef(0);
+
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
@@ -69,14 +74,31 @@ export function DonationMarquee({ donations }: { donations: Donation[] }) {
 
     function tick(time: number) {
       if (!el) return;
-      if (!pausedRef.current) {
-        if (lastTimeRef.current > 0) {
-          el.scrollLeft += SPEED * (time - lastTimeRef.current) / 1000;
+
+      if (arrowDeltaRef.current !== 0) {
+        const dt = arrowLastTimeRef.current > 0 ? (time - arrowLastTimeRef.current) / 1000 : 0;
+        arrowLastTimeRef.current = time;
+        if (dt > 0) {
+          // Exponential decay: step = remaining × (1 - e^(-k·dt))
+          // Starts fast, tapers to zero — frame-rate independent
+          const step = arrowDeltaRef.current * (1 - Math.exp(-ARROW_DECAY * dt));
+          el.scrollLeft += step;
+          arrowDeltaRef.current -= step;
+          if (Math.abs(arrowDeltaRef.current) < 0.5) arrowDeltaRef.current = 0;
         }
-        lastTimeRef.current = time;
-      } else {
         lastTimeRef.current = 0;
+      } else {
+        arrowLastTimeRef.current = 0;
+        if (!pausedRef.current) {
+          if (lastTimeRef.current > 0) {
+            el.scrollLeft += SPEED * (time - lastTimeRef.current) / 1000;
+          }
+          lastTimeRef.current = time;
+        } else {
+          lastTimeRef.current = 0;
+        }
       }
+
       rafRef.current = requestAnimationFrame(tick);
     }
 
@@ -121,10 +143,8 @@ export function DonationMarquee({ donations }: { donations: Donation[] }) {
   }, []);
 
   const scrollBy = useCallback((delta: number) => {
-    const el = containerRef.current;
-    if (!el) return;
     pauseTemporarily();
-    el.scrollLeft += delta;
+    arrowDeltaRef.current += delta;
   }, [pauseTemporarily]);
 
   const items = Array.from({ length: repeat * 2 * donations.length }, (_, i) => donations[i % donations.length]);
