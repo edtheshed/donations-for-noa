@@ -59,15 +59,17 @@ function CardPhoto({ donation, large = false }: { donation: Donation; large?: bo
 interface Props {
   donation: Donation;
   index: number;
+  onModalChange?: (open: boolean) => void;
 }
 
-export function DonationCard({ donation, index }: Props) {
+export function DonationCard({ donation, index, onModalChange }: Props) {
   const [open, setOpen] = useState(false);
   const stagger = `stagger-${Math.min(index + 1, 4)}`;
   const hasMessage = !!donation.message;
   const pointerDown = useRef<{ x: number; y: number } | null>(null);
 
   useEffect(() => {
+    onModalChange?.(open);
     if (!open) return;
     document.body.style.overflow = 'hidden';
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false); };
@@ -76,7 +78,7 @@ export function DonationCard({ donation, index }: Props) {
       document.body.style.overflow = '';
       window.removeEventListener('keydown', onKey);
     };
-  }, [open]);
+  }, [open, onModalChange]);
 
   return (
     <>

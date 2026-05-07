@@ -7,7 +7,7 @@ import { DonationCard } from './DonationCard';
 const CARD_WIDTH = 288;
 const CARD_GAP = 20;
 const SPEED = 60;
-const RESUME_DELAY = 15000;
+const RESUME_DELAY = 5000;
 const ARROW_SCROLL = CARD_WIDTH + CARD_GAP;
 const ARROW_DECAY = 9; // ease-out decay constant (higher = snappier start, quicker finish)
 
@@ -111,11 +111,25 @@ export function DonationMarquee({ donations }: { donations: Donation[] }) {
     };
   }, [repeat, donations.length]);
 
+  const modalOpenRef = useRef(false);
+
   const pauseTemporarily = useCallback(() => {
     pausedRef.current = true;
     clearTimeout(resumeTimerRef.current);
-    resumeTimerRef.current = setTimeout(() => { pausedRef.current = false; }, RESUME_DELAY);
+    resumeTimerRef.current = setTimeout(() => {
+      if (!modalOpenRef.current) pausedRef.current = false;
+    }, RESUME_DELAY);
   }, []);
+
+  const handleModalChange = useCallback((open: boolean) => {
+    modalOpenRef.current = open;
+    if (open) {
+      pausedRef.current = true;
+      clearTimeout(resumeTimerRef.current);
+    } else {
+      pauseTemporarily();
+    }
+  }, [pauseTemporarily]);
 
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
     const el = containerRef.current;
@@ -173,7 +187,7 @@ export function DonationMarquee({ donations }: { donations: Donation[] }) {
       >
         {items.map((donation, i) => (
           <div key={i} className="flex-shrink-0 w-72 pr-5">
-            <DonationCard donation={donation} index={0} />
+            <DonationCard donation={donation} index={0} onModalChange={handleModalChange} />
           </div>
         ))}
       </div>
