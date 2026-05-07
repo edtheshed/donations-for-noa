@@ -64,12 +64,13 @@ export function DonationMarquee({ donations }: { donations: Donation[] }) {
     if (!el) return;
 
     const midItem = el.children[repeat * donations.length] as HTMLElement | undefined;
-    loopAtRef.current = midItem ? midItem.offsetLeft : Math.round(el.scrollWidth / 2);
+    loopAtRef.current = midItem ? midItem.offsetLeft : Math.round(el.scrollWidth / 3);
+    el.scrollLeft = loopAtRef.current; // start in the middle copy so both directions loop
 
     function onScroll() {
       if (!el) return;
-      if (el.scrollLeft >= loopAtRef.current) el.scrollLeft -= loopAtRef.current;
-      else if (el.scrollLeft < 0) el.scrollLeft += loopAtRef.current;
+      if (el.scrollLeft >= loopAtRef.current * 2) el.scrollLeft -= loopAtRef.current;
+      else if (el.scrollLeft < loopAtRef.current) el.scrollLeft += loopAtRef.current;
     }
 
     function tick(time: number) {
@@ -162,7 +163,7 @@ export function DonationMarquee({ donations }: { donations: Donation[] }) {
     arrowDeltaRef.current += delta;
   }, [pauseTemporarily]);
 
-  const items = Array.from({ length: repeat * 2 * donations.length }, (_, i) => donations[i % donations.length]);
+  const items = Array.from({ length: repeat * 3 * donations.length }, (_, i) => donations[i % donations.length]);
 
   return (
     <div className="relative">
