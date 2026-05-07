@@ -103,10 +103,56 @@ export function DonationMarquee({ donations }: { donations: Donation[] }) {
       rafRef.current = requestAnimationFrame(tick);
     }
 
+    // Touch drag — imperative so we can preventDefault on horizontal swipes only
+    let touchStartX = 0, touchStartY = 0, touchScrollLeft = 0;
+    let touchIsHorizontal: boolean | null = null;
+
+    function doPause() {
+      pausedRef.current = true;
+      clearTimeout(resumeTimerRef.current);
+      resumeTimerRef.current = setTimeout(() => {
+        if (!modalOpenRef.current) pausedRef.current = false;
+      }, RESUME_DELAY);
+    }
+
+    function onTouchStart(e: TouchEvent) {
+      const t = e.touches[0];
+      if (!t) return;
+      touchStartX = t.clientX;
+      touchStartY = t.clientY;
+      touchScrollLeft = el!.scrollLeft;
+      touchIsHorizontal = null;
+    }
+
+    function onTouchMove(e: TouchEvent) {
+      const t = e.touches[0];
+      if (!t) return;
+      const dx = t.clientX - touchStartX;
+      const dy = t.clientY - touchStartY;
+      if (touchIsHorizontal === null) {
+        if (Math.abs(dx) > 5) touchIsHorizontal = true;
+        else if (Math.abs(dy) > 5) touchIsHorizontal = false;
+      }
+      if (touchIsHorizontal !== true) return;
+      e.preventDefault();
+      el!.scrollLeft = touchScrollLeft - dx;
+      doPause();
+    }
+
+    function onTouchEnd() {
+      touchIsHorizontal = null;
+    }
+
     el.addEventListener('scroll', onScroll, { passive: true });
+    el.addEventListener('touchstart', onTouchStart, { passive: true });
+    el.addEventListener('touchmove', onTouchMove, { passive: false });
+    el.addEventListener('touchend', onTouchEnd, { passive: true });
     rafRef.current = requestAnimationFrame(tick);
     return () => {
       el.removeEventListener('scroll', onScroll);
+      el.removeEventListener('touchstart', onTouchStart);
+      el.removeEventListener('touchmove', onTouchMove);
+      el.removeEventListener('touchend', onTouchEnd);
       cancelAnimationFrame(rafRef.current);
       clearTimeout(resumeTimerRef.current);
     };
