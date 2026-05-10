@@ -66,9 +66,9 @@ export function StatsSection({
       {count > 0 && (
         <div className="flex flex-col items-center gap-2" aria-label={`${count} donations`}>
           {Array.from({ length: Math.ceil(count / 18) }, (_, row) => (
-            <div key={row} className="flex justify-center gap-2">
+            <div key={row} className="flex justify-center gap-0.5 sm:gap-2">
               {donations.slice(row * 18, row * 18 + 18).map((d) => (
-                <BloodDrop key={d.id} className="w-5 h-5 text-crimson opacity-60" />
+                <BloodDrop key={d.id} className="w-4 h-4 sm:w-5 sm:h-5 text-crimson opacity-60" />
               ))}
             </div>
           ))}
