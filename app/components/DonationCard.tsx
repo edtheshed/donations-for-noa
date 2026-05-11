@@ -64,9 +64,15 @@ interface Props {
 
 export function DonationCard({ donation, index, onModalChange }: Props) {
   const [open, setOpen] = useState(false);
+  const [isTruncated, setIsTruncated] = useState(false);
   const stagger = `stagger-${Math.min(index + 1, 4)}`;
-  const hasMessage = !!donation.message;
   const pointerDown = useRef<{ x: number; y: number } | null>(null);
+  const messageRef = useRef<HTMLQuoteElement>(null);
+
+  useEffect(() => {
+    const el = messageRef.current;
+    if (el) setIsTruncated(el.scrollHeight > el.clientHeight);
+  }, [donation.message]);
 
   useEffect(() => {
     onModalChange?.(open);
@@ -85,7 +91,7 @@ export function DonationCard({ donation, index, onModalChange }: Props) {
       <article
         onPointerDown={e => { pointerDown.current = { x: e.clientX, y: e.clientY }; }}
         onClick={e => {
-          if (!hasMessage) return;
+          if (!isTruncated) return;
           const p = pointerDown.current;
           if (p && Math.hypot(e.clientX - p.x, e.clientY - p.y) > 5) return;
           setOpen(true);
@@ -93,8 +99,8 @@ export function DonationCard({ donation, index, onModalChange }: Props) {
         className={[
           `animate-fade-up ${stagger}`,
           'bg-white rounded-2xl overflow-hidden shadow-sm border border-warm-border',
-          'hover:shadow-md transition-shadow duration-300 flex flex-col',
-          hasMessage ? 'cursor-pointer' : '',
+          'hover:shadow-md transition-shadow duration-300 flex flex-col h-full',
+          isTruncated ? 'cursor-pointer' : '',
         ].join(' ')}
       >
         <CardPhoto donation={donation} />
@@ -120,6 +126,7 @@ export function DonationCard({ donation, index, onModalChange }: Props) {
 
           {donation.message && (
             <blockquote
+              ref={messageRef}
               className="text-warm-muted text-sm leading-relaxed italic border-l-2 border-ocean-mid pl-3 mt-1 line-clamp-3"
               style={{ fontFamily: 'var(--font-lora)' }}
             >
@@ -127,7 +134,7 @@ export function DonationCard({ donation, index, onModalChange }: Props) {
             </blockquote>
           )}
 
-          {hasMessage && (
+          {isTruncated && (
             <span className="text-xs text-warm-muted/60 mt-auto pt-1">Tap to read more</span>
           )}
         </div>
