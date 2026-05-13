@@ -11,6 +11,9 @@ create table donations (
   created_at timestamptz default now()
 );
 
+-- Explicit grants (required for Data API access from May 2026 onwards)
+grant select, insert on public.donations to anon;
+
 -- Row Level Security
 alter table donations enable row level security;
 
