@@ -215,6 +215,7 @@ export function DonationForm() {
                 onChange={(c) => setCrop(c)}
                 onComplete={(c) => setCompletedCrop(c)}
                 aspect={CARD_ASPECT}
+                keepSelection
                 className="w-full"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -269,7 +270,7 @@ export function DonationForm() {
       )}
 
       {/* Submit */}
-      <button type="submit" disabled={submitting}
+      <button type="submit" disabled={submitting || !!rawUrl}
         className="w-full py-3.5 rounded-xl bg-ocean hover:bg-ocean-dark text-white text-sm font-medium tracking-wide transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2.5">
         {submitting ? (
           <>
