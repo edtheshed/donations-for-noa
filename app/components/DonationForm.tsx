@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import ReactCrop, { centerCrop, makeAspectCrop, type Crop, type PixelCrop } from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
@@ -61,8 +61,6 @@ function compressBlob(blob: Blob): Promise<File> {
 }
 
 export function DonationForm() {
-  const [today, setToday] = useState('');
-  useEffect(() => { setToday(new Date().toISOString().split('T')[0]); }, []);
 
   const [message, setMessage] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -158,7 +156,7 @@ export function DonationForm() {
         <label htmlFor="donated_at" className={labelClass}>
           Date donated <span className="text-ocean">*</span>
         </label>
-        <input id="donated_at" name="donated_at" type="date" required max={today}
+        <input id="donated_at" name="donated_at" type="date" required
           className={inputClass} suppressHydrationWarning />
       </div>
 
