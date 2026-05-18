@@ -120,6 +120,15 @@ export function DonationForm() {
     setSubmitting(true);
     setResult(null);
     const formData = new FormData(e.currentTarget);
+
+    const donatedAt = formData.get('donated_at') as string;
+    const date = new Date(donatedAt + 'T00:00:00');
+    const year = date.getFullYear();
+    if (isNaN(date.getTime()) || year < 2025 || year > 2030) {
+      setResult({ success: false, error: 'Please enter a valid donation date.' });
+      setSubmitting(false);
+      return;
+    }
     if (photoFile) formData.set('photo', photoFile);
     const res = await submitDonation(formData);
     setResult(res);
@@ -157,6 +166,7 @@ export function DonationForm() {
           Date donated <span className="text-ocean">*</span>
         </label>
         <input id="donated_at" name="donated_at" type="date" required
+          min="2025-01-01" max="2030-12-31"
           className={inputClass} suppressHydrationWarning />
       </div>
 
