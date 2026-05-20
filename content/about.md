@@ -8,7 +8,7 @@ safest course of action was to complete the delivery in theatre under general an
 
 Our daughter Noa was delivered around 2pm on Saturday 18th April. The delivery itself was straightforward, but it
 quickly became obvious in theatre how much Mad's condition had deteriorated. She had sepsis, plancental abruption and a
-rare disorder called Disseminated Intravascular Coagulation, which prevented her blood from clotting. She started to
+disorder called Disseminated Intravascular Coagulation, which prevented her blood from clotting. She started to
 bleed heavily. Over a couple of hours, she lost nine litres of blood - around twice as much as she would normally have
 in her body at any one time.
 
